@@ -1,0 +1,36 @@
+{
+  "env": {
+        "es6": true
+    },
+    globals: {
+        "angular": true,
+        "require": true,
+        "module": true,
+        "describe": true,
+        "it": true,
+        "browser": true,
+        "expect": true,
+        "beforeEach": true,
+        "inject": true,
+        "spyOn": true,
+        "exports": true,
+        "process": true,
+        "__dirname": true,
+        "console": true
+      },
+    "extends": "eslint:recommended",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "rules": {
+        "indent": ["error", "tab"],
+        "linebreak-style": ["off", "windows"],
+        "quotes": ["error", "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+        "semi": ["error", "never"],
+        "no-console": ["error", { allow: ["warn", "error", "info"] }]
+    }
+}
