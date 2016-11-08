@@ -1,0 +1,21 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Kemia App</title>
+
+  <link rel="stylesheet" type="text/css" href="frontend/build/styles.css" />
+  <base ng-href="/">
+</head>
+<body ng-app="kemia-app">
+
+  <a ui-sref="home" ui-sref-active="active">Home</a>
+  <a ui-sref="about" ui-sref-active="active">About</a>
+
+  <ui-view></ui-view>
+
+  <script type="text/javascript" src="node_modules/angular/angular.js"></script>
+  <script type="text/javascript" src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="frontend/build/scripts.js"></script>
+</body>
+</html>
