@@ -3,7 +3,7 @@
 let qR = 'qToRaspberry',
     qW = 'qToWebserver',
     channel = null,
-    cloudAmqpUrl = "amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz",
+    cloudAmqpUrl = "amqp://pwxpzbkg:2lBrsgZEGj8gtGAg9ezbGzpOba8l-3Mo@squirrel.rmq.cloudamqp.com/pwxpzbkg",
     open = require('amqplib').connect(cloudAmqpUrl).then(function(conn) {
         var ok = conn.createChannel();
         ok = ok.then(function(ch) {
