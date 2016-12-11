@@ -1,0 +1,62 @@
+#calibration {
+    .select-sensor {
+        @include span-columns(12);
+        @include omega();
+
+        background: #E7F1EC;
+        border-bottom: 5px solid #d4e6dd;
+        height: 20vh;
+        padding: 30px;
+    }
+
+    .calibration-info-container {
+        @include span-columns(12);
+        background: #E7F1EC;
+    }
+
+    .calibration-container {
+        @extend .select-sensor;
+        @include span-columns(8);
+        //@include omega();
+        @include pad();
+        border: none;
+        height: 100%;
+        position: relative;
+    }
+
+    .question-container {
+        @include span-columns(8);
+        @include omega();
+        padding: 15px 0;
+
+        p {
+            margin-bottom: 15px;
+        }
+    }
+
+    .spinner-container {
+        @include span-columns(8);
+        border: none;
+        padding: 15px 0;
+
+        .nanobar {
+            margin: 15px 0;
+
+            .bar {
+                background-color: #97BBCD;
+            }
+        }
+    }
+
+    .info-container {
+        @include span-columns(4);
+        //@include omega();
+        @include pad();
+        @include reset-display;
+        border: none;
+        padding: 15px 0;
+        background: #E7F1EC;
+        border-left: 5px solid #d4e6dd;
+        height: 100%;
+    }
+}

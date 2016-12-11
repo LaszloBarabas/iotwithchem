@@ -1,6 +1,6 @@
 (() => {
 	angular.module('kemia-app')
-	.factory('chartFactory', chartFactory)
+		.factory('chartFactory', chartFactory)
 
 	chartFactory.$inject = ['$http']
 
@@ -9,12 +9,20 @@
 			getTemperatureInterval: getTemperatureInterval
 		}
 
-		function getTemperatureInterval(sensorid, datefrom, dateto) {
-			return $http.get('/gettemperatureinterval', {params: {sensorid:sensorid, datefrom: datefrom, dateto: dateto }})
-        .then(getTemperatureIntervalComplete).catch(getTemperatureIntervalError)
+		function getTemperatureInterval(sensorId, dateFrom, dateTo) {
+			return $http.get('/gettemperatureinterval', {
+				params: {
+					sensorid: sensorId,
+					datefrom: dateFrom,
+					dateto: dateTo
+				}
+			})
+				.then(getTemperatureIntervalComplete)
+				.catch(getTemperatureIntervalError)
 		}
 
 		function getTemperatureIntervalComplete(response) {
+			console.log('chart factory', 	response)
 			return response.data
 		}
 

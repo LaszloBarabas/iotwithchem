@@ -18,8 +18,8 @@
 			name: 'research',
 			url: '/research',
 			templateUrl: 'frontend/src/research/research.html',
-			controller: 'chartController',
-			controllerAs: 'chart',
+			controller: 'researchController',
+			controllerAs: 'rc',
 			authenticate: true
 		}
 
@@ -27,9 +27,9 @@
 			name: 'team',
 			url: '/team',
 			templateUrl: 'frontend/src/team/team.html',
-			controller: 'TeamController',
+			controller: 'teamController',
 			controllerAs: 'team',
-			authenticate: false
+			authenticate: true
 		}
 
 		let loginState = {
@@ -39,17 +39,20 @@
 			authenticate: false
 		}
 
-
-		$urlRouterProvider.otherwise('/')
-		$locationProvider.html5Mode({
-			enabled: true,
-			requireBase: false
-		})
+		let calibrationState = {
+			name: 'calibration',
+			url: '/calibration',
+			templateUrl: 'frontend/src/calibration/calibration.html',
+			controller: 'calibrationController',
+			controllerAs: 'cc',
+			authenticate: true
+		}
 
 		$stateProvider.state(helloState)
 		$stateProvider.state(researchState)
 		$stateProvider.state(teamState)
 		$stateProvider.state(loginState)
+		$stateProvider.state(calibrationState)
 
 		$urlRouterProvider.otherwise('/home')
 		$locationProvider.html5Mode({

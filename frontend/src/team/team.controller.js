@@ -1,10 +1,10 @@
 (() => {
 	angular.module('kemia-app')
-	.controller('TeamController', TeamController)
+	.controller('teamController', teamController)
 
-	TeamController.$inject = []
+	teamController.$inject = []
 
-	function TeamController() {
+	function teamController() {
 
 	}
 })()

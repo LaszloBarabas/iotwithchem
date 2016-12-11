@@ -1,8 +1,7 @@
 <header class="navigation" role="banner">
     <div class="navigation-wrapper neat-container">
         <a class="logo" ui-sref="home">
-            <img alt="Logo Image" ng-src="frontend/icons/iot.png">
-            </img>
+            <img alt="Logo Image" ng-src="frontend/icons/iot.png"/>
         </a>
         <a class="navigation-menu-button" href="javascript:void(0)" id="js-mobile-menu">
             MENU
@@ -20,6 +19,11 @@
                     </a>
                 </li>
                 <li class="nav-link">
+                    <a ui-sref="calibration" ui-sref-active="active">
+                        Calibration
+                    </a>
+                </li>
+                <li class="nav-link">
                     <a ui-sref="team" ui-sref-active="active">
                         The Team
                     </a>
@@ -27,15 +31,14 @@
             </ul>
         </nav>
         <nav role="navigation" class="account-items">
-            <ul class="navigation-menu show" id="js-navigation-menu">
+            <ul class="navigation-menu show" id="js-login-menu">
                 <li class=" nav-link nav-link-account">
                     <a href="{{lc.link}}" target="_self">
                         {{lc.text}}
                     </a>
                 </li>
                 <li class="nav-link nav-link-account">
-                    <img alt="" src="{{lc.picUrl}}">
-                    </img>
+                    <img alt="" src="{{lc.picUrl}}"/>
                 </li>
                 <li class="nav-link nav-link-account">
                     <a href="http://www.facebook.com/{{lc.fbId}}" target="_blank">

@@ -1,0 +1,39 @@
+<div id="calibration" class="neat-container margin-top-80">
+
+    <div class="select-sensor">
+
+        <label for="sensor-list">Select the sensor to calibrate</label>
+        <select id="sensor-list" ng-model="cc.sensor">
+            <option ng-repeat="sensor in cc.sensors" value="{{ sensor }}">
+                {{ sensor }}
+            </option>
+        </select>
+    </div>
+
+    <div class="calibration-info-container">
+        <div class="calibration-container">
+            <div class="question-container">
+
+                <p>
+                    Please introduce the PH sensor into the first solution and provide it's PH value:
+                </p>
+
+                <label for="ph-value">PH value</label>
+                <input id="ph-value" name="phValue" type="number" ng-model="cc.phValue"/>
+
+                <button type="submit" ng-click="cc.submitPHValue()">OK</button>
+            </div>
+
+            <div class="spinner-container">
+                <div>This is the spinner section</div>
+                <div id="sensor-loading">
+                    <div id="loading-bar"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-container">
+            <div>This is the info section</div>
+        </div>
+    </div>
+</div>

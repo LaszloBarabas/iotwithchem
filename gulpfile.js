@@ -17,7 +17,7 @@ let scripts = [
 	'frontend/src/app.route.js',
 	'frontend/src/**/*.js'
 ]
-gulp.task('transpile', ['lint'], () => {
+gulp.task('transpile', /*['lint'],*/ () => {
 	return gulp.src(scripts)
              .pipe(plumber())
              .pipe(sourceMaps.init())
