@@ -2,9 +2,9 @@
 	angular.module('kemia-app')
 		.controller('researchController', researchController)
 
-	researchController.$inject = ['chartFactory', '$interval']
+	researchController.$inject = ['$interval', 'chartFactory']
 
-	function researchController(chartFactory, $interval) {
+	function researchController($interval, chartFactory) {
 
 		let rc = this
 		rc.sensorId = 1

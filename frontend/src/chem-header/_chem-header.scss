@@ -22,6 +22,7 @@ header.navigation {
     background-color: $navigation-background;
     border-bottom: 1px solid darken($navigation-background, 10);
     min-height: $navigation-height;
+    height: $navigation-height;
     width: 100%;
     z-index: 999;
 

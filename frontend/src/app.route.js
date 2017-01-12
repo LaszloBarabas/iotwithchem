@@ -48,18 +48,8 @@
 			authenticate: false
 		}
 
-		let calibrationState = {
-			name: 'calibration',
-			url: '/calibration',
-			templateUrl: 'frontend/src/calibration/calibration.html',
-			controller: 'calibrationController',
-			controllerAs: 'cc',
-			authenticate: true
-		}
-
 		$stateProvider.state(helloState)
 		$stateProvider.state(researchState)
-		$stateProvider.state(calibrationState)
 		$stateProvider.state(teamState)
 		$stateProvider.state(loginState)
 		$stateProvider.state(calibrationState)
