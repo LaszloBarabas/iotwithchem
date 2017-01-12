@@ -5,6 +5,7 @@ let path = require('path'),
 	mq = require(path.resolve('backend/models/messagequeue.js'))
 
 var raspiAlive = false
+var time=0
 
 module.exports = (app, passport) => {
 
@@ -35,6 +36,27 @@ module.exports = (app, passport) => {
 			res.json(returndata)
 		})
 
+	})
+
+	app.get('/getph', (req, res) => {
+		var sensorid = req.param('sensorid')
+		if (typeof sensorid === 'undefined') sensorid = '1'
+
+		db.getPh(sensorid,function(returndata){
+			res.json(returndata)
+		})
+	})
+
+
+	app.get('/getphinterval', (req, res) => {
+		var sensorid = req.param('sensorid')
+		var datefrom = req.param('datefrom')
+		var dateto = req.param('dateto')
+		if (typeof sensorid === 'undefined') sensorid = '1'
+
+		db.getPhInterval(sensorid,datefrom,dateto,function(returndata){
+			res.json(returndata)
+		})
 	})
 
 
@@ -100,6 +122,38 @@ module.exports = (app, passport) => {
 		if (typeof upinterval === 'undefined') upinterval = '30000'
     	mq.sendmsgtoRaspberry('Sensor:UpInterval:'+sensorid+':'+upinterval)
     	res.json({sent: true})
+	})
+    
+    app.get('/setpumpon', function (req, res) {
+    	time=new Date()
+    	mq.sendmsgtoRaspberry('Pump:Calibrate:ON')
+    	res.json({sent: true})
+	})
+	app.get('/setpumpoff', function (req, res) {
+		time=new Date()-time
+    	mq.sendmsgtoRaspberry('Pump:Calibrate:OFF')
+    	res.json({time: time})
+	})
+
+	app.get('/calibratephsensorlow', function (req, res) {
+    	mq.sendmsgtoRaspberry('Ph:Calibrate:Low')
+		res.json({sent : true})
+	})
+
+	app.get('/calibratephsensormid', function (req, res) {
+    	mq.sendmsgtoRaspberry('Ph:Calibrate:Mid')
+		res.json({sent : true})
+	})
+
+	app.get('/calibratephsensorhigh', function (req, res) {
+    	mq.sendmsgtoRaspberry('Ph:Calibrate:High')
+		res.json({sent : true})
+	})
+
+	app.get('/setphvalue', function (req, res) {
+		var phvalue = req.param('phvalue')
+    	mq.sendmsgtoRaspberry('Ph:Value:'+phvalue)
+		res.json({sent : true})
 	})
 
 	app.get('*', (req, res) => {

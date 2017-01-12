@@ -13,7 +13,10 @@ let qR = 'qToRaspberry',
         });
     }).then(null, console.warn),
     heatertemperature = 0,
-    uploadTempInterval = 30000
+    uploadTempInterval = 30000,
+    calibrate = 'N', //no calibration
+    pumpIsWorking = false,
+    phValue = 7.0
 
 function sendmsgtoWebserver(msg){
     channel.assertQueue(qW)
@@ -47,7 +50,37 @@ function MessageRouting(message){
                 uploadTempInterval = splitMessage[3]
 			    break
 		    }
-        break   
+        break 
+    case 'Ph':
+        switch(splitMessage[1]){
+		    case 'Calibrate':
+                switch(splitMessage[2]){
+        		    case 'Low':
+                        calibrate = 'L'
+        			    break
+                    case 'Mid':
+                        calibrate = 'M'
+                        break
+                    case 'High':
+                        calibrate = 'H'
+                        break
+		        }
+			    break
+            case 'Value':
+                phValue = splitMessage[2]
+                break
+		    }
+        break
+    case 'Pump':
+        switch(splitMessage[2]){ // [1] is calibrate or other function... might need to set that too
+            case 'ON':
+                pumpIsWorking = true;
+                break
+            case 'OFF':
+                pumpIsWorking = false;
+                break
+        }
+    break   
 	}
 }
 
@@ -60,6 +93,31 @@ function getUploadInterval(){
     return uploadTempInterval
 }
 
+function isPumpWorking(){
+    return pumpIsWorking
+}
+
+function setPumpWorking(value){
+    pumpIsWorking = value
+}
+
+function getCalibration(){
+    return calibrate
+}
+
+function resetCalibration(){
+     calibrate = 'N'
+}
+
+function getPhValue(){
+    return phValue;
+}
+
 module.exports.sendmsgtoWebserver = sendmsgtoWebserver
 module.exports.getHeaterTemperature = getHeaterTemperature
 module.exports.getUploadInterval = getUploadInterval
+module.exports.getCalibration = getCalibration
+module.exports.resetCalibration = resetCalibration
+module.exports.isPumpWorking = isPumpWorking
+module.exports.setPumpWorking = setPumpWorking
+module.exports.getPhValue = getPhValue

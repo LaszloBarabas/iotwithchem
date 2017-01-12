@@ -1,39 +1,22 @@
+
 <div id="calibration" class="neat-container margin-top-80">
-
-    <div class="select-sensor">
-
-        <label for="sensor-list">Select the sensor to calibrate</label>
-        <select id="sensor-list" ng-model="cc.sensor">
-            <option ng-repeat="sensor in cc.sensors" value="{{ sensor }}">
-                {{ sensor }}
-            </option>
-        </select>
-    </div>
-
-    <div class="calibration-info-container">
-        <div class="calibration-container">
-            <div class="question-container">
-
-                <p>
-                    Please introduce the PH sensor into the first solution and provide it's PH value:
-                </p>
-
-                <label for="ph-value">PH value</label>
-                <input id="ph-value" name="phValue" type="number" ng-model="cc.phValue"/>
-
-                <button type="submit" ng-click="cc.submitPHValue()">OK</button>
-            </div>
-
-            <div class="spinner-container">
-                <div>This is the spinner section</div>
-                <div id="sensor-loading">
-                    <div id="loading-bar"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="info-container">
-            <div>This is the info section</div>
-        </div>
-    </div>
+<div class="sensor-block">
+    <br>
+<table class="sensor-table">
+    <tr data-ng-controller="calibrationController">
+        <td>Calibrate </td>
+        <td><input type="button" class="callow" ng-click="calibrationlow()"  value="calibrationlow" /><td>
+        <td><input type="button" class="calmid" ng-click="calibrationmid()"  value="calibrationmid" /><td>
+        <td><input type="button" class="calhigh" ng-click="calibrationhigh()"  value="calibrationhigh" /><td>
+    <tr>
+    <tr data-ng-controller="calibrationController">
+        <td>Ph: </td>
+        <td class="calibration-value">{{ phValue }} pH<td>
+    <tr>
+    <tr data-ng-controller="calibrationController">
+		<td>Last pH measurement: </td>
+		<td>{{ phDate | date: 'medium' }}</td>			
+    </tr>
+</table>
+</div>
 </div>

@@ -5,6 +5,7 @@
 let path = require('path'),
 	Temperature = require(path.resolve('./backend/models/temperature.js')),
 	Alive = require(path.resolve('./backend/models/alive.js')),
+	Ph = require(path.resolve('./backend/models/ph.js')),
 	mongoose = require('mongoose')
 
 /** 
@@ -79,6 +80,34 @@ Db.prototype.createTemperatureMessage = function (rid,sid,tv,td,_callback){
 		sensorid : sid,
 		tempvalue : tv,
 		tempdate :  td
+	})
+	// call the Temperature class save operator 
+	t.save(function(err) {
+		if (err) 
+			return _callback(err)
+	})
+	return _callback(null)
+}
+
+/**
+ * createPhMessage   method is responsabile for ...
+ * 
+ * rid: 
+ * sid: 
+ * pv: 
+ * pd: 
+ * callback:  
+ */
+
+Db.prototype.createPhMessage = function (rid,sid,pv,pd,_callback){
+	var self = this
+	
+	// create a Ph json object 
+	var t = new Ph({  
+		raspberryid : rid,
+		sensorid : sid,
+		phvalue : pv,
+		phdate :  pd
 	})
 	// call the Temperature class save operator 
 	t.save(function(err) {

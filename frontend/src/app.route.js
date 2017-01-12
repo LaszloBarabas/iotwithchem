@@ -23,6 +23,15 @@
 			authenticate: true
 		}
 
+		let calibrationState = {
+			name: 'calibration',
+			url: '/calibration',
+			templateUrl: 'frontend/src/calibration/calibration.html',
+			controller: 'calibrationController',
+			controllerAs: 'calibration',
+			authenticate: true
+		}
+
 		let teamState = {
 			name: 'team',
 			url: '/team',
@@ -50,6 +59,7 @@
 
 		$stateProvider.state(helloState)
 		$stateProvider.state(researchState)
+		$stateProvider.state(calibrationState)
 		$stateProvider.state(teamState)
 		$stateProvider.state(loginState)
 		$stateProvider.state(calibrationState)
