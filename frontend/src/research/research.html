@@ -5,24 +5,39 @@
 
             <div class="column-1">
 
-                <div class="gateway-container">
-                    GATEWAY
+                <div class="gateway-container chem-card">
+                    <div class="gateway-name">Name:</div>
+                    <div class="gateway-status">
+                        <chem-status></chem-status>
+                    </div>
                 </div>
 
-                <div class="sensor-container">
-                    SENSORS
+                <div class="sensor-list-container chem-card">
+                    <div>
+                        <label for="sensor1">sensor name 1</label>
+                        <input type="checkbox" id="sensor1" checked/>
+                    </div>
+                    <div>
+                        <label for="sensor2">sensor name 2</label>
+                        <input type="checkbox" id="sensor2" checked/>
+                    </div>
                 </div>
 
-            </div>
+            </div><!-- column-1 -->
 
             <div class="column-2">
-                Lorem ipsum sic doloret. Sic transit gloaria mundi. In patria nostra multe silve sunt!
-            </div>
 
+                <pi-sensor name="temperature"
+                           last-date="rc.lastMeasureDate"
+                           last-value="rc.lastMeasuredValue">
+                </pi-sensor>
 
-        </div>
-    </div>
+                <pi-sensor></pi-sensor>
 
+            </div><!-- column-2 -->
+
+        </div><!-- container-2 -->
+    </div><!-- container-2 -->
 </div>
 
 

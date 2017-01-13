@@ -5,7 +5,7 @@
     .container-2 {
         float:left;
         width:100%;
-        background:green;
+        background: whitesmoke;
         overflow:hidden;
         position:relative;
 
@@ -13,9 +13,15 @@
         .container-1 {
             float:left;
             width:100%;
-            background:yellow;
+            background: whitesmoke;
             position:relative;
             right:75%;
+        }
+    }
+
+    .gateway-container {
+        .gateway-name {
+            margin-bottom: 10px;
         }
     }
 }

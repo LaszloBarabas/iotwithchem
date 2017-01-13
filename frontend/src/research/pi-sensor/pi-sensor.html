@@ -1,0 +1,35 @@
+<div class="sensor-container chem-card">
+
+    <table>
+
+        <thead></thead>
+
+        <tbody>
+            <tr>
+                <td>{{ name }} now</td>
+                <td>{{ lastValue }}</td>
+            </tr>
+
+            <tr>
+                <td>set {{ name }} value</td>
+                <td>value</td>
+            </tr>
+
+            <tr>
+                <td>last measured {{ name }}</td>
+                <td>{{ lastDate }}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <canvas class="chart chart-line" chart-data="tempV"
+                            chart-labels="tempD" chart-options="options" chart-colors="colors"
+                            chart-dataset-override="datasetOverride" chart-click="onClick">
+                    </canvas>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>

@@ -2,12 +2,66 @@
 	angular.module('kemia-app')
 		.controller('researchController', researchController)
 
-	researchController.$inject = ['$interval', 'chartFactory']
+	researchController.$inject = ['$interval', 'temperatureFactory']
 
-	function researchController($interval, chartFactory) {
+	function researchController($interval, temperatureFactory) {
 
 		let rc = this
+
 		rc.sensorId = 1
+		rc.tempInterval = 72	 // hours
+		rc.date = {
+			to: new moment(),
+			from: new moment().subtract(rc.tempInterval, 'hours'),
+			update: updateDate
+		}
+
+		loadLastTemperature()
+
+
+		function loadLastTemperature() {
+			getLastTemperature()
+
+			function getLastTemperature() {
+				return temperatureFactory.getLastMeasuredTemperature()
+					.then((temp) => {
+						console.log('got it', temp)
+						rc.lastMeasureDate = moment(parseInt(temp.tempdate)).format('ddd hh:mm:ss')
+						console.log('rc.lastMeasureDate', rc.lastMeasureDate)
+						rc.lastMeasuredValue = temp.tempvalue
+					})
+			}
+		}
+
+		temperatureFactory.getTemperatureInterval(rc.sensorId, convertToMillis(rc.date.from), convertToMillis(rc.date.to))
+			.then((tempInterval) => {
+				console.log('tempinterval', tempInterval)
+			})
+
+		temperatureFactory.setTemperatureTime(rc.sensorId, rc.tempInterval)
+			.then((response) => {
+				console.log('set temp interval response', response)
+			})
+
+
+
+
+
+
+
+
+
+
+		function convertToMillis(date) {
+			return moment(date).valueOf()
+		}
+
+		function updateDate() {
+			this.to = new moment()
+			this.from = new moment().subtract(rc.tempInterval, 'hours')
+		}
+
+		/*rc.sensorId = 1
 		rc.tempInterval = 72	 // hours
 		rc.date = {
 			to: new moment(),
@@ -51,15 +105,6 @@
 					}
 					return data
 				})
-		}
-
-		function convertToMillis(date) {
-			return moment(date).valueOf()
-		}
-
-		function updateDate() {
-			this.to = new moment()
-			this.from = new moment().subtract(rc.tempInterval, 'hours')
-		}
+		}*/
 	}
 })()

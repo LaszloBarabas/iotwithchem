@@ -1,0 +1,8 @@
+.status-container {
+    display: table;
+
+    span, img {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}
