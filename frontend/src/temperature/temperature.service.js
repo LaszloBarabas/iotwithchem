@@ -8,7 +8,7 @@
 		return {
 			getLastMeasuredTemperature: getLastMeasuredTemperature,
 			getTemperatureInterval: getTemperatureInterval,
-			setTemperatureTime: setTemperatureTime
+			setTemperatureInterval: setTemperatureInterval
 			// setHeaterTemperature: setHeaterTemperature
 		}
 
@@ -47,7 +47,7 @@
 		 * @param interval - time interval
 		 * @returns {*}
 		 */
-		function setTemperatureTime(sensorId, interval) {
+		function setTemperatureInterval(sensorId, interval) {
 			return $http.get('/settemperaturesensorsuploadintervall', {
 				params: {
 					sensorid: sensorId,

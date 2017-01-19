@@ -28,13 +28,13 @@ body {
     padding: 15px;
 }
 
-// Cards used in research page side panel. We add margin-top starting with the second instance, because these are meant to be 'stacked'
+// Cards used in research page. We add margin-top starting with the second instance, because these are meant to be 'stacked'
 .chem-card {
     width: 100%;
     margin: 0 auto;
     box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.5);
     background-color: #E7F1EC;
-    padding: 15px;
+    padding: 30px;
 
     &:not(:first-child) {
         margin-top: 30px;

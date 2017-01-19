@@ -27,9 +27,12 @@
 
             <div class="column-2">
 
-                <pi-sensor name="temperature"
+                <pi-sensor ng-if="rc.loadTempsDone"
+                        name="temperature"
                            last-date="rc.lastMeasureDate"
-                           last-value="rc.lastMeasuredValue">
+                           last-value="rc.lastMeasuredValue"
+                           chart-x="rc.tempChart.tempDates"
+                           chart-y="rc.tempChart.tempValues">
                 </pi-sensor>
 
                 <pi-sensor></pi-sensor>
@@ -41,101 +44,90 @@
 </div>
 
 
+<!--<div class="sensor-block">
+    <table class="sensor-table">
+        <thead></thead>
+        <tbody>
+        <tr class="status">
+            <td status></td>
+        </tr>
+        <tr data-ng-controller="temperatureController">
+            <td>Temperature:</td>
+            <td class="sensor-value">{{ temperatureValue }}&#8451;
 
-
-
-
-
-
-
-
-
-
-
-    <!--<div class="sensor-block">
-        <table class="sensor-table">
-            <thead></thead>
-            <tbody>
-            <tr class="status">
-                <td status></td>
-            </tr>
-            <tr data-ng-controller="temperatureController">
-                <td>Temperature:</td>
-                <td class="sensor-value">{{ temperatureValue }}&#8451;
-
-                </td>
-            <tr data-ng-controller="temperatureController">
-                <td>Temperature Interval:</td>
-                <td>
-                    <input name="myInput" class="data-input-field" ng-model="interval" required placeholder="{{placeholder}}">
-                    <input type="button" class="save-button" value="save" ng-click="setTemperatureTime()"
-                           data-ng-init="initTemperatureTime()"/>
-                </td>
-            </tr>
-            <tr data-ng-controller="temperatureController">
-                <td>Temperature Control:</td>
-                <td>
-                    <input name="myInput" class="data-input-field" ng-model="settedTemperature" required>
-                    <input type="button" class="save-button" ng-click="setHeaterTemperature()" value="save"/>
-                </td>
-            </tr>
-            </tr>
-            <tr data-ng-controller="temperatureController">
-                <td>Last temperature measurement:</td>
-                <td>{{ temperatureDate | date: 'medium' }}</td>
-            </tr>
-            <tr data-ng-controller="phController">
-                <td>Ph:</td>
-                <td class="sensor-value">{{ phValue }} pH
-                </td>
-            </tr>
-            <tr data-ng-controller="phController">
-                <td>Ph Control:</td>
-                <td>
-                    <input name="myInput" class="data-input-field" ng-model="settedPh" required>
-                    <input type="button" class="save-button" ng-click="setHeaterPh()" value="save"/>
-                </td>
-            </tr>
-            <tr data-ng-controller="phController">
-                <td>Last pH measurement:</td>
-                <td>{{ phDate | date: 'medium' }}</td>
-            </tr>
-            </tbody>
-        </table>
-        <form data-ng-controller="chartController">
-            <label>
-                <label>Temperature chart interval:</label>
-                <input type="radio" ng-model="value" value=172800000 ng-click="getVal(172800000)">48h</input>
-                <input type="radio" ng-model="value" value=86400000 ng-click="getVal(86400000)" ng-checked="true"
-                       data-ng-init="getVal(86400000)">24h</input>
-                <input type="radio" ng-model="value" value=43200000 ng-click="getVal(43200000)">12h</input>
-                <input type="radio" ng-model="value" value=3600000 ng-click="getVal(3600000)">1h</input>
-                <input type="radio" ng-model="value" value=1800000 ng-click="getVal(1800000)">30m</input>
-                <input type="radio" ng-model="value" value=600000 ng-click="getVal(600000)">10m</input>
-                <input type="radio" ng-model="value" value=300000 ng-click="getVal(300000)">5m</input>
-            </label>
-            <canvas class="chart chart-line" chart-data="tempV"
-                    chart-labels="tempD" chart-options="options" chart-colors="colors"
-                    chart-dataset-override="datasetOverride" chart-click="onClick">
-            </canvas>
-        </form>
-        <br>
-        <form data-ng-controller="phChartController">
-            <label>
-                <label>Ph chart interval:</label>
-                <input type="radio" ng-model="value" value=172800000 ng-click="getValPh(172800000)">48h</input>
-                <input type="radio" ng-model="value" value=86400000 ng-click="getValPh(86400000)" ng-checked="true"
-                       data-ng-init="getValPh(86400000)">24h</input>
-                <input type="radio" ng-model="value" value=43200000 ng-click="getValPh(43200000)">12h</input>
-                <input type="radio" ng-model="value" value=3600000 ng-click="getValPh(3600000)">1h</input>
-                <input type="radio" ng-model="value" value=1800000 ng-click="getValPh(1800000)">30m</input>
-                <input type="radio" ng-model="value" value=600000 ng-click="getValPh(600000)">10m</input>
-                <input type="radio" ng-model="value" value=300000 ng-click="getValPh(300000)">5m</input>
-            </label>
-            <p><br></p>
-            <canvas class="chart chart-line" chart-data="phV"
-                    chart-labels="phD" chart-options="options" chart-colors="colors"
-                    chart-dataset-override="datasetOverride" chart-click="onClick">
-            </canvas>
-        </form>
-    </div>-->
+            </td>
+        <tr data-ng-controller="temperatureController">
+            <td>Temperature Interval:</td>
+            <td>
+                <input name="myInput" class="data-input-field" ng-model="interval" required placeholder="{{placeholder}}">
+                <input type="button" class="save-button" value="save" ng-click="setTemperatureTime()"
+                       data-ng-init="initTemperatureTime()"/>
+            </td>
+        </tr>
+        <tr data-ng-controller="temperatureController">
+            <td>Temperature Control:</td>
+            <td>
+                <input name="myInput" class="data-input-field" ng-model="settedTemperature" required>
+                <input type="button" class="save-button" ng-click="setHeaterTemperature()" value="save"/>
+            </td>
+        </tr>
+        </tr>
+        <tr data-ng-controller="temperatureController">
+            <td>Last temperature measurement:</td>
+            <td>{{ temperatureDate | date: 'medium' }}</td>
+        </tr>
+        <tr data-ng-controller="phController">
+            <td>Ph:</td>
+            <td class="sensor-value">{{ phValue }} pH
+            </td>
+        </tr>
+        <tr data-ng-controller="phController">
+            <td>Ph Control:</td>
+            <td>
+                <input name="myInput" class="data-input-field" ng-model="settedPh" required>
+                <input type="button" class="save-button" ng-click="setHeaterPh()" value="save"/>
+            </td>
+        </tr>
+        <tr data-ng-controller="phController">
+            <td>Last pH measurement:</td>
+            <td>{{ phDate | date: 'medium' }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <form data-ng-controller="chartController">
+        <label>
+            <label>Temperature chart interval:</label>
+            <input type="radio" ng-model="value" value=172800000 ng-click="getVal(172800000)">48h</input>
+            <input type="radio" ng-model="value" value=86400000 ng-click="getVal(86400000)" ng-checked="true"
+                   data-ng-init="getVal(86400000)">24h</input>
+            <input type="radio" ng-model="value" value=43200000 ng-click="getVal(43200000)">12h</input>
+            <input type="radio" ng-model="value" value=3600000 ng-click="getVal(3600000)">1h</input>
+            <input type="radio" ng-model="value" value=1800000 ng-click="getVal(1800000)">30m</input>
+            <input type="radio" ng-model="value" value=600000 ng-click="getVal(600000)">10m</input>
+            <input type="radio" ng-model="value" value=300000 ng-click="getVal(300000)">5m</input>
+        </label>
+        <canvas class="chart chart-line" chart-data="tempV"
+                chart-labels="tempD" chart-options="options" chart-colors="colors"
+                chart-dataset-override="datasetOverride" chart-click="onClick">
+        </canvas>
+    </form>
+    <br>
+    <form data-ng-controller="phChartController">
+        <label>
+            <label>Ph chart interval:</label>
+            <input type="radio" ng-model="value" value=172800000 ng-click="getValPh(172800000)">48h</input>
+            <input type="radio" ng-model="value" value=86400000 ng-click="getValPh(86400000)" ng-checked="true"
+                   data-ng-init="getValPh(86400000)">24h</input>
+            <input type="radio" ng-model="value" value=43200000 ng-click="getValPh(43200000)">12h</input>
+            <input type="radio" ng-model="value" value=3600000 ng-click="getValPh(3600000)">1h</input>
+            <input type="radio" ng-model="value" value=1800000 ng-click="getValPh(1800000)">30m</input>
+            <input type="radio" ng-model="value" value=600000 ng-click="getValPh(600000)">10m</input>
+            <input type="radio" ng-model="value" value=300000 ng-click="getValPh(300000)">5m</input>
+        </label>
+        <p><br></p>
+        <canvas class="chart chart-line" chart-data="phV"
+                chart-labels="phD" chart-options="options" chart-colors="colors"
+                chart-dataset-override="datasetOverride" chart-click="onClick">
+        </canvas>
+    </form>
+</div>-->

@@ -15,10 +15,24 @@
 			scope: {
 				name: '@',
 				lastDate: '=',
-				lastValue: '='
+				lastValue: '=',
+				chartX: '=',
+				chartY: '='
 			},
 			link: (scope, element, attributes) => {
-				console.log('yolo swag')
+
+				scope.chartOptions = {
+					scales: {
+						yAxes: [{
+							id: 'y-axis-1',
+							type: 'linear',
+							display: true,
+							position: 'left'
+						}]
+					}
+				}
+
+				scope.chartDataSetOverride = [{yAxisID: 'y-axis-1'}]
 			}
 		}
 	}
