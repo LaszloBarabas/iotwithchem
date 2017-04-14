@@ -54,10 +54,11 @@ MQueueWS.prototype.sendmsgtoRaspberry = function (msg) {
  */
 MQueueWS.prototype.receivemsgfromRaspberry = function () {
 	this.channel.assertQueue(this.qW)
+	var self = this;
 	this.channel.consume(this.qW, function (msg) {
 		if (msg !== null) {
-			this.MessageRouting(msg.content.toString());
-			channel.ack(msg)
+			self.MessageRouting(msg.content.toString());
+			self.channel.ack(msg)
 		}
 	});
 }

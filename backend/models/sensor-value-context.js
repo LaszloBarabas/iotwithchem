@@ -10,6 +10,8 @@ var SensorValueContext = module.exports = function () {
 	this.calibrate = 'N' //no calibration
 	this.pumpIsWorking = false
 	this.phValue = 7.0
+	this.workInProgress = false
+	this.workDuration = 3600 // Work duration in seconds!!!
 
 }
 
@@ -58,4 +60,18 @@ SensorValueContext.prototype.setPhValue= function ( value ) {
 	this.phValue = value 
 }
 
+SensorValueContext.prototype.isWorkInProgress = function () {
+	return this.workInProgress
+}
 
+SensorValueContext.prototype.setWorkInProgress = function(value) {
+	this.workInProgress = value
+}
+
+SensorValueContext.prototype.getWorkDuration = function () {
+	return this.workDuration
+}
+
+SensorValueContext.prototype.setWorkDuration = function(value) {
+	this.workDuration = value
+}

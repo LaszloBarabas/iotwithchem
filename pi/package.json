@@ -1,6 +1,6 @@
 {
-  "name": "kemia-app",
-  "version": "1.0.0",
+  "name": "RaspberryForChem",
+  "version": "1.1.0",
   "description": "This is the gateway for the iotwithchem.",
   "engines": {
     "node": "4.2.5",
@@ -8,16 +8,20 @@
   },
   "main": "pi.js",
   "scripts": {
-    "start": "sudo node pi.js"
+    "start": "sudo node pi-main.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://git.heroku.com/kemia-app.git"
+    "url": "https://github.com/LaszloBarabasUBB/iotwithchem"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
+    "amqplib": "^0.5.1",
+    "ds18b20": "^0.1.0",
+    "i2c-bus": "^1.2.1",
+    "mongoose": "^4.9.0",
     "rpi-gpio": "^0.7.0"
   }
 }

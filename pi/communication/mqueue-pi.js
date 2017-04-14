@@ -1,7 +1,5 @@
 'use strict'
 
-
-
 /**
  * Class to handle the communication 
  * pi gateway toward webservice 
@@ -73,6 +71,17 @@ MQueuePI.prototype.MessageRouting = function (message) {
 	var splitMessage = message.split(':')
 
 	switch (splitMessage[0]) {
+	case 'Work':
+		switch(splitMessage[1]) {
+			case 'Start':
+				this.sensorValueContext.setWorkInProgress(true)
+				this.sensorValueContext.setWorkDuration(parseInt(splitMessage[2]))
+				break
+			case 'Stop':
+				this.sensorValueContext.setWorkInProgress(false)
+				break
+		}
+		break
 	case 'Heater':
 		switch (splitMessage[1]) {
 		case 'Temperature':

@@ -1,11 +1,10 @@
-
-
 'use strict'
 
+var isRaspberryApp = true
 let path = require('path'),
-	Temperature = require(path.resolve('./backend/models/temperature.js')),
-	Alive = require(path.resolve('./backend/models/alive.js')),
-	Ph = require(path.resolve('./backend/models/ph.js')),
+	Temperature = require(path.resolve('../backend/models/temperature.js')),
+	Alive = require(path.resolve('../backend/models/alive.js')),
+	Ph = require(path.resolve('../backend/models/ph.js')),
 	mongoose = require('mongoose')
 
 /** 
@@ -25,7 +24,7 @@ var Db = module.exports = function ( ) {
  */
 Db.prototype.init = function () {
 	var self = this 
-	
+
 	self.mongoose.Promise = global.Promise
 
 	//database connection settings
@@ -61,7 +60,7 @@ Db.prototype.close = function () {
 	})
 }
 
-/**
+/*
  * createTemperatureMessage   method is responsabile for ...
  * 
  * rid: 
@@ -70,6 +69,7 @@ Db.prototype.close = function () {
  * td: 
  * callback:  
  */
+ 
 
 Db.prototype.createTemperatureMessage = function (rid,sid,tv,td,_callback){
 	var self = this
@@ -85,8 +85,9 @@ Db.prototype.createTemperatureMessage = function (rid,sid,tv,td,_callback){
 	t.save(function(err) {
 		if (err) 
 			return _callback(err)
+		return _callback(null)
 	})
-	return _callback(null)
+	
 }
 
 /**
@@ -113,8 +114,9 @@ Db.prototype.createPhMessage = function (rid,sid,pv,pd,_callback){
 	t.save(function(err) {
 		if (err) 
 			return _callback(err)
+		return _callback(null)
 	})
-	return _callback(null)
+	
 }
 
 /** 
@@ -132,17 +134,23 @@ Db.prototype.createAliveMessage = function ( rid,td,_callback){
 		alivedate : td
 	})
 
-	// call the Alive class save operator 
-	Alive.find((error, alivedata) => {
-		if(alivedata.length != 0){
-			alivedata[0].remove();
+	Alive.find({},(error, alivedata) => {
+		if(error || alivedata == null){
+			a.save(function(err) {
+			if (err) 
+				return _callback(err)
+			return _callback('successful');
+			})
 		}
-		
-		a.save(function(err) {
-		if (err) 
-			return _callback(err)
-		})
-	return _callback(null)
-	})
+		else 
+		{	if (alivedata.length != 0)
+			alivedata[0].remove();
+			a.save(function(err) {
+			if (err) 
+				return _callback(err)
+			return _callback('successful');
+			})
+		}
+	})	
 }
 

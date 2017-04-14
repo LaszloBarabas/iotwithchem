@@ -1,4 +1,4 @@
-var ds18b20 = require('./ds18b20')
+var ds18b20 = require('ds18b20')
 
 
 /**

@@ -78,9 +78,11 @@ PiApp.prototype.heatingCheck = function(){
 		console.log('Current temperature',value)
 		if( value < self.heatsourcedevice.lowerHeatTolerance){
 			self.heatsourcedevice.turnOnHeatRelay()
+			self.messagequeue.sendmsgtoWebserver('Heater:ON')
 		}
 		else if( value> self.heatsourcedevice.upperHeatTolerance){
 			self.heatsourcedevice.turnOffHeatRelay()
+			self.messagequeue.sendmsgtoWebserver('Heater:OFF')
 		}
 	})
 }
@@ -96,8 +98,10 @@ PiApp.prototype.phCheck = function(){
 		if( phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta) ||
 			phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta)){
 			self.pumpdevice.turnOnPump()
+			self.messagequeue.sendmsgtoWebserver('Pump:ON')
 		}else{
 			self.pumpdevice.turnOffPump()
+			self.messagequeue.sendmsgtoWebserver('Pump:OFF')
 		}
 	})
 	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)
@@ -106,13 +110,14 @@ PiApp.prototype.phCheck = function(){
 /**
  * Calibrate Low Ph sensor (ph = 4.00 ) 
  */
-PiApp.prototype.phCallibrateLow = function(){
+PiApp.prototype.phCalibrateLow = function(){
 	var self = this 
 	clearTimeout(self.phcheckTimeout)
 	var ph = '4.00'
 	setTimeout(function(){
 		self.phdevice.calibrateLow(ph,function(callbackmsg){
 			console.log('Calibration Low on PhSensor was ' + callbackmsg)
+			this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Low:'+callbackmsg)
 			self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
 		})
 	},1000);
@@ -121,13 +126,14 @@ PiApp.prototype.phCallibrateLow = function(){
 /**
  * Calibrate Middle Ph sensor (ph = 7.00 ) 
  */
-PiApp.prototype.phCallibrateMid = function(){
+PiApp.prototype.phCalibrateMid = function(){
 	var self = this 
 	clearTimeout(self.phcheckTimeout)
 	var ph = '7.00'
 	setTimeout(function(){
 		self.phdevice.calibrateMiddle(ph,function(callbackmsg){
 			console.log('Calibration Mid on PhSensor was ' + callbackmsg)
+			this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:Mid:'+callbackmsg)
 			self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
 		})
 	},1000);
@@ -136,13 +142,14 @@ PiApp.prototype.phCallibrateMid = function(){
 /**
  * Calibrate High Ph sensor (ph = 10.00 ) 
  */
-PiApp.prototype.phCallibrateHigh = function(){
+PiApp.prototype.phCalibrateHigh = function(){
 	var self = this 
 	clearTimeout(self.phcheckTimeout)
 	var ph = '10.00'
 	setTimeout(function(){
 		self.phdevice.calibrateHigh(ph,function(callbackmsg){
 			console.log('Calibration High on PhSensor was ' + callbackmsg)
+			this.messagequeue.sendmsgtoWebserver('Ph:Calibrate:High:'+callbackmsg)
 			self.phcheckTimeout = setTimeout(self.phCheck.bind(self),self.phCheckInterval)
 		})
 	},1000);
@@ -160,7 +167,6 @@ PiApp.prototype.messagequeueCheck = function(){
 	console.info('CurrentHeatValue',currentHeatingValue)
 	if (lastTempInQueue != currentHeatingValue){
 		this.heatsourcedevice.setHeatingTo(lastTempInQueue)
-		this.messagequeue.sendmsgtoWebserver('Heater:Temperature:'+lastTempInQueue)
 	}
 	var lastUploadIntervalinQueue = parseInt(this.messagequeue.sensorValueContext.getUploadInterval())
 	if(lastUploadIntervalinQueue != this.temperatureUploadInterval){
@@ -177,15 +183,15 @@ PiApp.prototype.messagequeueCheck = function(){
 	var calibrate = this.messagequeue.sensorValueContext.getCalibration()
 	switch(calibrate){
 		case 'L':
-        		this.phCallibrateLow()
+        		this.phCalibrateLow()
 			this.messagequeue.sensorValueContext.resetCalibration()
 			break
         	case 'M':
-            		this.phCallibrateMid()
+            		this.phCalibrateMid()
 			this.messagequeue.sensorValueContext.resetCalibration()
             		break
         	case 'H':
-            		this.phCallibrateHigh()
+            		this.phCalibrateHigh()
 			this.messagequeue.sensorValueContext.resetCalibration()
             break
 		}
@@ -196,11 +202,19 @@ PiApp.prototype.messagequeueCheck = function(){
  * 
  *  */ 
 PiApp.prototype.setEventLoop = function () {
-
-	setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
+	this.aliveReporter = setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
 	this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
-	setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
+	this.heatReporter = setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
 	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)
-	setInterval(this.messagequeueCheck.bind(this),this.messagequeueCheckInterval)
+	this.messageQueueWatcher = setInterval(this.messagequeueCheck.bind(this),this.messagequeueCheckInterval)
+}
 
+PiApp.prototype.unsetEventLoop = function () {
+	clearInterval(this.aliveReporter)
+	clearTimeout(this.uploadDataTimeout)
+	clearInterval(this.heatReporter)
+	clearTimeout(this.phcheckTimeout)
+	clearInterval(this.messageQueueWatcher)
+	this.pumpdevice.turnOffPump()
+	this.heatsourcedevice.turnOffHeatRelay()
 }

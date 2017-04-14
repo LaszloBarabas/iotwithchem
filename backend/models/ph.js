@@ -1,7 +1,24 @@
 'use strict'
 
-let mongoose = require('mongoose'),
-	Schema = mongoose.Schema
+var loaded = true;
+
+let mongoose,Schema;
+
+try{
+  mongoose = require('mongoose')
+}catch(e)
+{
+  loaded=false;
+}
+
+if(!loaded)
+{
+  try{
+    mongoose = require('../pi/node_modules/mongoose')
+  }catch(e){throw e}
+}
+
+Schema = mongoose.Schema
 
 let phSchema = new Schema({
 	raspberryid : String,
