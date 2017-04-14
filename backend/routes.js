@@ -182,6 +182,14 @@ module.exports = (app, passport) => {
 		res.json({sent : true})
 	})
 
+	app.get('/startjob', function (req, res) {
+		mq.sendmsgtoRaspberry("Work:Start:3650")
+	})
+
+	app.get('/stopjob', function (req, res) {
+		mq.sendmsgtoRaspberry("Work:Stop")
+	})
+
 	app.get('*', (req, res) => {
 		res.sendFile(path.resolve('./frontend/index.html'))
 	})

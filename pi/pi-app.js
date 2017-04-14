@@ -202,11 +202,19 @@ PiApp.prototype.messagequeueCheck = function(){
  * 
  *  */ 
 PiApp.prototype.setEventLoop = function () {
-
-	setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
+	this.aliveReporter = setInterval(this.IsAlive.bind(this),this.hearthBeatInterval)
 	this.uploadDataTimeout = setTimeout(this.uploadDataToDatabase.bind(this),this.temperatureUploadInterval)
-	setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
+	this.heatReporter = setInterval(this.heatingCheck.bind(this),this.heatingCheckInterval)
 	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)
-	setInterval(this.messagequeueCheck.bind(this),this.messagequeueCheckInterval)
+	this.messageQueueWatcher = setInterval(this.messagequeueCheck.bind(this),this.messagequeueCheckInterval)
+}
 
+PiApp.prototype.unsetEventLoop = function () {
+	clearInterval(this.aliveReporter)
+	clearTimeout(this.uploadDataTimeout)
+	clearInterval(this.heatReporter)
+	clearTimeout(this.phcheckTimeout)
+	clearInterval(this.messageQueueWatcher)
+	this.pumpdevice.turnOffPump()
+	this.heatsourcedevice.turnOffHeatRelay()
 }

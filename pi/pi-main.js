@@ -1,6 +1,7 @@
 
 // load the pi ap module 
 var PiApp = require('./pi-app')
+var PiWatcher = require('./pi-watcher')
 
 // load the Db module 
 var Db = require('./communication/db')
@@ -56,9 +57,16 @@ var mQueuePi = new MQueuePi (sensorValueContext)
 // db, devices, gateway 
 var piapp = new PiApp(db, temperaturedevice, heatsourcedevice, phdevice, pumpdevice, gateway, mQueuePi)
 
+var piwatcher = new PiWatcher(mQueuePi,piapp)
+
+
+piwatcher.startWatcher()
+
+
+
 // Initialize the pi app 
-piapp.init()
+// piapp.init()
 // start the event loop of the pi app 
-piapp.setEventLoop()
+// piapp.setEventLoop()
 
 
