@@ -44,7 +44,7 @@ var phdevice = new PhDevice()
 var pumpdevice = new PumpDevice()
 
 // Create new Sensor Values Context 
-var SensorValueContext = require ('../models/sensor-value-context')
+var SensorValueContext = require ('../backend/models/sensor-value-context')
 var sensorValueContext = new SensorValueContext () 
 
 // Create new Message Queue pi -> webservice 

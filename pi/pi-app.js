@@ -78,11 +78,11 @@ PiApp.prototype.heatingCheck = function(){
 		console.log('Current temperature',value)
 		if( value < self.heatsourcedevice.lowerHeatTolerance){
 			self.heatsourcedevice.turnOnHeatRelay()
-			this.messagequeue.sendmsgtoWebserver('Heater:ON')
+			self.messagequeue.sendmsgtoWebserver('Heater:ON')
 		}
 		else if( value> self.heatsourcedevice.upperHeatTolerance){
 			self.heatsourcedevice.turnOffHeatRelay()
-			this.messagequeue.sendmsgtoWebserver('Heater:OFF')
+			self.messagequeue.sendmsgtoWebserver('Heater:OFF')
 		}
 	})
 }
@@ -98,10 +98,10 @@ PiApp.prototype.phCheck = function(){
 		if( phvalue < (self.pumpdevice.pumpPhValue - self.pumpdevice.pumpDelta) ||
 			phvalue > (self.pumpdevice.pumpPhValue + self.pumpdevice.pumpDelta)){
 			self.pumpdevice.turnOnPump()
-			this.messagequeue.sendmsgtoWebserver('Pump:ON')
+			self.messagequeue.sendmsgtoWebserver('Pump:ON')
 		}else{
 			self.pumpdevice.turnOffPump()
-			this.messagequeue.sendmsgtoWebserver('Pump:OFF')
+			self.messagequeue.sendmsgtoWebserver('Pump:OFF')
 		}
 	})
 	this.phcheckTimeout = setTimeout(this.phCheck.bind(this),this.phCheckInterval)

@@ -2,9 +2,9 @@
 
 var isRaspberryApp = true
 let path = require('path'),
-	Temperature = require(path.resolve('../models/temperature.js')),
-	Alive = require(path.resolve('../models/alive.js')),
-	Ph = require(path.resolve('../models/ph.js')),
+	Temperature = require(path.resolve('../backend/models/temperature.js')),
+	Alive = require(path.resolve('../backend/models/alive.js')),
+	Ph = require(path.resolve('../backend/models/ph.js')),
 	mongoose = require('mongoose')
 
 /** 
