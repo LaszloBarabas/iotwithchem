@@ -240,10 +240,11 @@ module.exports = (app, passport, io) => {
 };
 
 function logAction(req, res, next) {
-  db.logAction(req.user.fb.name, req.originalUrl, (new Date()).toString());
+  //db.logAction(req.user.fb.name, req.originalUrl, (new Date()).toString());
   next();
 }
 
 function checkAuthorization(req, res, next) {
-  req.isAuthenticated() ? next() : res.sendFile(path.resolve('./dist/index.html'));
+  next();
+  // req.isAuthenticated() ? next() : res.sendFile(path.resolve('./dist/index.html'));
 }

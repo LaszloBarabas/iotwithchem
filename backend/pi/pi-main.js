@@ -21,7 +21,7 @@ let PhDevice;
 // Create new PumpDevice
 let PumpDevice;
 
-let socket = require('socket.io-client')('http://iotwithchem2.herokuapp.com');
+let socket = require('socket.io-client')('http://localhost:8081');
 
 socket.on('connect', function () {
   console.log('Connected');

@@ -13,21 +13,22 @@ export class AuthGuardService implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
 
     const url: string = state.url;
-    return this.authService.checkAuthentication().map(user => {
-      if (user !== null) {
-        localStorage.setItem('name', user.name);
-        this.authService.setUser(user);
-      }
-      if (url === '/login') {
-        return !user;
-      } else {
-        if (user) {
-          return true;
-        }
-        this.authService.redirectUrl = url;
-        this.router.navigate(['/login']);
-        return false;
-      }
-    });
+    return true;
+    // return this.authService.checkAuthentication().map(user => {
+    //   if (user !== null) {
+    //     localStorage.setItem('name', user.name);
+    //     this.authService.setUser(user);
+    //   }
+    //   if (url === '/login') {
+    //     return !user;
+    //   } else {
+    //     if (user) {
+    //       return true;
+    //     }
+    //     this.authService.redirectUrl = url;
+    //     this.router.navigate(['/login']);
+    //     return false;
+    //   }
+    // });
   }
 }

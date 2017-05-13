@@ -34,7 +34,7 @@
   </md-sidenav>
 
   <div>
-    <button id="menuButton" md-button *ngIf="loggedIn" (click)="sidenav.open()">
+    <button id="menuButton" md-button (click)="sidenav.open()">
       <md-icon>menu</md-icon>
     </button>
     <router-outlet></router-outlet>
