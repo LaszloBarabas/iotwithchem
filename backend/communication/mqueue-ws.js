@@ -22,9 +22,12 @@ const MQueueWS = module.exports = function (io) {
  * initialize the communication channel and
  * set some initial parameter values
  */
+
+//dev: amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz
+//test: amqp://zbiymccn:UXz_taIiSg0YD5AB5bLwGa-dOtAZLI7H@orangutan.rmq.cloudamqp.com/zbiymccn
 MQueueWS.prototype.init = function () {
 
-  this.cloudAmqpUrl = 'amqp://fiynopcz:fYBzRHfKTa-dcH8bgMo4WtTg5iPkpUa-@hare.rmq.cloudamqp.com/fiynopcz';
+  this.cloudAmqpUrl = 'amqp://zbiymccn:UXz_taIiSg0YD5AB5bLwGa-dOtAZLI7H@orangutan.rmq.cloudamqp.com/zbiymccn';
   const self = this;
   this.open = require('amqplib').connect(self.cloudAmqpUrl).then(function (conn) {
     let ok = conn.createChannel();

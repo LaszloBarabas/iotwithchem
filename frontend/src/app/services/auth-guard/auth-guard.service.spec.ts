@@ -15,7 +15,7 @@ describe('AuthGuardService', () => {
     });
   });
 
-  it('should ...', inject([AuthGuardService], (service: AuthGuardService) => {
+  it('should create service', inject([AuthGuardService], (service: AuthGuardService) => {
     expect(service).toBeTruthy();
   }));
 });

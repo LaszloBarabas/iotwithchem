@@ -12,12 +12,12 @@ describe('CalibrationServiceService', () => {
     });
   });
 
-  it('should create', inject([CalibrationService], (service: CalibrationService) => {
+  it('should create service', inject([CalibrationService], (service: CalibrationService) => {
     expect(service).toBeTruthy();
   }));
 
 
-  describe('getDeviceStatus ()', () => {
+  describe('calibratePhSensor ()', () => {
 
     it('should return a boolean depending on calibration success', inject([CalibrationService, MockBackend],
       (service: CalibrationService, backend: MockBackend) => {

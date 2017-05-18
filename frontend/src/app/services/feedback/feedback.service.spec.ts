@@ -11,7 +11,7 @@ describe('FeedbackService', () => {
     });
   });
 
-  it('should ...', inject([FeedbackService], (service: FeedbackService) => {
+  it('should create service', inject([FeedbackService], (service: FeedbackService) => {
     expect(service).toBeTruthy();
   }));
 });

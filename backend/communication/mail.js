@@ -17,6 +17,9 @@ const Mail = module.exports = function () {
 Mail.prototype.sendMail = function (from, message) {
 
   // setup email data with unicode symbols
+  if (!from) {
+    from = 'Tester';
+  }
   let mailOptions = {
     from: 'iotwithchem@yahoo.com', // sender address
     to: 'kelemenisty@gmail.com', // list of receivers

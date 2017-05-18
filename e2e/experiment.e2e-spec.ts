@@ -120,7 +120,7 @@ describe('Experiment Component', () => {
 
     okButton = element(by.id('okButton'));
     okButton.click();
-    browser.sleep(1000);
+    browser.sleep(2000);
 
     const valueUpdated = pumpValue.getText();
     const intervalUpdated = phReadInterval.getText();
@@ -156,7 +156,7 @@ describe('Experiment Component', () => {
 
     cancelButton = element(by.id('cancelButton'));
     cancelButton.click();
-    browser.sleep(1000);
+    browser.sleep(2000);
 
     const valueUpdated = pumpValue.getText();
     const intervalUpdated = phReadInterval.getText();

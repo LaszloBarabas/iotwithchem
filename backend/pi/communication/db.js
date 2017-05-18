@@ -1,9 +1,9 @@
 'use strict';
 
 let path = require('path'),
-  Temperature = require(path.resolve('../models/temperature.js')),
-  Ph = require(path.resolve('../models/ph.js')),
-  Job = require(path.resolve('../models/job.js')),
+  Temperature = require('../../models/temperature.js'),
+  Ph = require('../../models/ph.js'),
+  Job = require('../../models/job.js'),
   mongoose = require('mongoose');
 
 /**
@@ -36,9 +36,9 @@ Db.prototype.init = function () {
   });
 
   // connect to database on mongolab
-  // uj mongo : mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5
-  //regi mongo kemiasoke :mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1
-  self.mongoose.connect('mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5',
+  // dev : mongodb://heroku_1v5ndzf5:jhh1cjdvneikc2p77n0b3n32j7@ds113938.mlab.com:13938/heroku_1v5ndzf5
+  //test :mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1
+  self.mongoose.connect('mongodb://heroku_hww55rc1:2ic4cjhncvmlse83a21lnejpru@ds139187.mlab.com:39187/heroku_hww55rc1',
     function (err) {
       if (err) {
         console.error('erros:' + err)

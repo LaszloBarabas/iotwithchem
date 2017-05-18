@@ -13,7 +13,7 @@ describe('PhService', () => {
     });
   });
 
-  it('should create', inject([PhService], (service: PhService) => {
+  it('should create service', inject([PhService], (service: PhService) => {
     expect(service).toBeTruthy();
   }));
 

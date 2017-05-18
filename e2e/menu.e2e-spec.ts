@@ -35,7 +35,7 @@ describe('Sidenav Component', () => {
     expect(sidenav.isDisplayed()).toBe(false);
   });
 
-  it('should find the experiment menu item', () => {
+  it('should navige to experiment page when clicking the experiment menu item', () => {
     browser.ignoreSynchronization = true;
     menuButton.click();
     browser.sleep(1000);
@@ -47,7 +47,7 @@ describe('Sidenav Component', () => {
     expect(browser.getCurrentUrl()).toContain('/experiment');
   });
 
-  it('should find the feedback menu item', () => {
+  it('should navigate to feedback page when clicking the feedback menu item', () => {
     menuButton.click();
     browser.sleep(1000);
     const feedback = element(by.id('feedbackLink'));
@@ -58,7 +58,7 @@ describe('Sidenav Component', () => {
     expect(browser.getCurrentUrl()).toContain('/feedback');
   });
 
-  it('should find the calibration menu item', () => {
+  it('should navigate to calibration page when clicking the calibration menu item', () => {
     menuButton.click();
     browser.sleep(1000);
     const calibration = element(by.id('calibrationLink'));
@@ -70,7 +70,7 @@ describe('Sidenav Component', () => {
   });
 
 
-  it('should find the reports menu item', () => {
+  it('should navigate to reports page when clicking the reports menu item', () => {
     menuButton.click();
     browser.sleep(1000);
     const reports = element(by.id('reportsLink'));

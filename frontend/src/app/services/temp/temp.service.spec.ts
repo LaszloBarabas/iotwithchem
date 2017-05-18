@@ -16,7 +16,7 @@ describe('TempService', () => {
   });
 
 
-  it('should create', inject([TempService], (service: TempService) => {
+  it('should create service', inject([TempService], (service: TempService) => {
     expect(service).toBeTruthy();
   }));
 
